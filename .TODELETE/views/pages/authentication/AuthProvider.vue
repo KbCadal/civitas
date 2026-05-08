@@ -1,0 +1,78 @@
+<script setup lang="ts">
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router' // Import Vue Router
+import keycloakInstance from '@/keycloak'
+
+const router = useRouter() // Inisialisasi router
+
+function login() {
+  keycloakInstance.login({
+    redirectUri: `${window.location.origin}/profile`,
+  })
+}
+
+function loginGoogle() {
+  keycloakInstance.login({
+    redirectUri: `${window.location.origin}/profile`, idpHint: 'google',
+  })
+}
+
+// Cek apakah user sudah login saat komponen dimuat
+onMounted(() => {
+  if (keycloakInstance.authenticated)
+    router.push('/profile')
+})
+</script>
+
+<template>
+  <VBtn
+                class="sso-btn font-weight-medium"
+                color="#3d3d3d"
+                prepend-icon="ri-key-fill"
+                block
+                type="submit"
+                rounded="xl"
+                @click="login"
+              >
+                Single Sign On
+              </VBtn>
+
+              <VBtn
+                class="google-btn font-weight-medium"
+                color="#3d3d3d"
+                prepend-icon="ri-google-fill"
+                block
+                type="submit"
+                rounded="xl"
+                variant="outlined"
+                style="margin-block-start: 5px"
+                @click="loginGoogle"
+              >
+                Sign in with Google
+              </VBtn>
+</template>
+
+<style scoped>
+/* Use :deep() correctly to apply styles to the Vuetify button */
+.v-btn.sso-btn {
+  background-color: #535666 !important; /* semi-transparent dark */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.v-btn.sso-btn:hover {
+  background-color: #3d3e50 !important;
+  transform: translateY(-2px);
+}
+
+/* Google button */
+.v-btn.google-btn {
+  border: 2px solid #a3a3a3;
+  background-color: rgba(255, 255, 255, 80%) !important;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.v-btn.google-btn:hover {
+  background-color: rgba(61, 61, 61, 100%);
+  transform: translateY(-2px);
+}
+</style>

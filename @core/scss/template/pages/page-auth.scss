@@ -1,0 +1,195 @@
+/* stylelint-disable selector-id-pattern */
+.layout-blank {
+  .auth-wrapper {
+    min-block-size: 100dvh;
+  }
+
+  .auth-footer-mask {
+    position: absolute;
+    inset-block-end: 0;
+    max-inline-size: 100%;
+    min-inline-size: 100%;
+  }
+
+  .auth-footer-tree {
+    position: absolute !important;
+    inset-block-end: 70px;
+    inset-inline-start: 70px;
+  }
+
+  .auth-footer-start-tree,
+  .auth-footer-end-tree {
+    position: absolute !important;
+    z-index: 1 !important;
+  }
+
+  .auth-footer-start-tree {
+    inset-block-end: 3.75rem;
+    inset-inline-start: 3.75rem;
+  }
+
+  .auth-footer-end-tree {
+    inset-block-end: 4.625rem;
+    inset-inline-end: 5rem;
+  }
+
+  .auth-card,
+  .auth-card-v2,
+  .auth-illustration {
+    z-index: 1 !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .skin--bordered {
+    .auth-card-v2 {
+      border-inline-start: 1px solid rgba(var(--v-border-color), var(--v-border-opacity)) !important;
+    }
+  }
+}
+
+.ui-logo-login-component,
+.div-block-2,
+.body-4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-position: center; /* Centers the image */
+  background-repeat: repeat; /* Prevents tiling */
+  background-size: cover;
+  inline-size: 100%;       /* Ensures it spans the full width */
+  min-block-size: 100vh; /* Ensures the element covers the full viewport height */
+  padding-inline-end: 200px;
+}
+
+.main-component-margin {
+  padding: 100px;
+  margin-block: 0%;
+  margin-inline: 10%;
+}
+
+.main-component-login {
+  display: grid;
+  overflow: visible;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  grid-auto-columns: 1fr;
+  grid-gap: 16px 0;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  margin-block: 5%;
+  margin-inline: 34% 20%;
+  padding-block-end: 0;
+  padding-inline: 10% 5%;
+
+  @media (min-width: 768px) {
+    margin-inline: 58% 15%;
+  }
+}
+
+.form-component-login {
+  position: relative;
+  z-index: 1;
+  display: flex; /* changed from block to flex */
+  overflow: hidden;
+  flex-direction: column; /* or row depending on layout */
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.7rem;
+  background-color: rgb(var(--v-theme-surface));
+  box-shadow: 0 12px 16px #0003;
+  grid-auto-columns: 1fr;
+  grid-gap: 16px 0;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  margin-inline: 20% 0%;
+  min-block-size: 300px;
+  min-inline-size: 345px;
+  outline: 0.5px solid #747474;
+  outline-offset: 0;
+  padding-block: 5%;
+  padding-inline: 0%;
+  transform: translate(0);
+
+  @media (min-width: 768px) {
+    margin-inline: -10% 8%;
+  }
+}
+
+.logo-component-login {
+  position: static;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.7rem;
+  background-color: #3d3d3d;
+  box-shadow: 0 12px 16px #0003;
+  margin-inline: -99px 94px;
+  min-inline-size: 350px;
+  outline: 0.5px solid #747474;
+  padding-block: 10%;
+  transform: translate(0);
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
+
+.combine-contact4_content {
+  position: static;
+  display: flex;
+  box-sizing: border-box;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  grid-gap: 0.7rem;
+  inline-size: 100%;
+  margin-block: 1%;
+  margin-inline: 20px;
+  object-fit: fill;
+  padding-block: 10%;
+  padding-inline: 5%;
+  padding-inline: 35px;
+}
+
+.heading-8 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  color: #ffdc01;
+  font-family: "Open Sans", sans-serif;
+  font-size: 200%;
+  font-weight: 700;
+  margin-block-end: 0;
+}
+
+.heading-7 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 80%;
+  font-weight: 700;
+  line-height: 100%;
+  margin-block: -5px 10px;
+}
+
+.image-11 {
+  margin-block: 80px;
+  margin-inline: 0;
+  max-inline-size: 100px;
+  padding-block: 100px;
+  padding-inline: 30px;
+}
+
+.logo-image-component-login {
+  position: static;
+  display: flex;
+  overflow: hidden;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding-block: 0%;
+  padding-inline: 0;
+}

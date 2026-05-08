@@ -1,0 +1,48 @@
+[
+  {
+    "id": "ph-1761451844735-3524",
+    "title": "Default Current Header",
+    "lightPath": "/images/beranda/header-bg.png",
+    "darkPath": "/images/beranda/header-bg-dark.png",
+    "createdBy": "system",
+    "createdAt": "2025-10-26T04:10:44.735Z",
+    "assignedRoles": [
+      "mahasiswa",
+      "dosen",
+      "staf"
+    ],
+    "priority": "current"
+  },
+  {
+    "id": "ph-1761451844736-2062",
+    "title": "26 Oct - Dosen",
+    "lightPath": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4YIvat9gY_nCYGXi9pmlF-m3fqBkkObpY6A&s",
+    "darkPath": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4YIvat9gY_nCYGXi9pmlF-m3fqBkkObpY6A&s",
+    "createdBy": "system",
+    "createdAt": "2025-10-26T04:10:44.736Z",
+    "assignedRoles": [
+      "dosen",
+      "mahasiswa",
+      "staf"
+    ],
+    "priority": "date",
+    "date": {
+      "mode": "monthly",
+      "value": "12"
+    }
+  },
+  {
+    "id": "ph-1761451844736-9810",
+    "title": "Birthday Header",
+    "lightPath": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY9Q-MzDT92SUJciAyxBDjZ_hK0CMZmfxapRjEltBdmHwZmI0g6I-zlOUrnfAKLnllwwY&usqp=CAU",
+    "darkPath": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY9Q-MzDT92SUJciAyxBDjZ_hK0CMZmfxapRjEltBdmHwZmI0g6I-zlOUrnfAKLnllwwY&usqp=CAU",
+    "createdBy": "system",
+    "createdAt": "2025-10-26T04:10:44.736Z",
+    "assignedRoles": [
+      "mahasiswa",
+      "dosen",
+      "staf"
+    ],
+    "priority": "birthday"
+  }
+]

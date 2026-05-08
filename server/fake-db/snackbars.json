@@ -1,0 +1,53 @@
+[
+  {
+    "id": "sb-1761474469018-8516",
+    "title": "Selamat Ulang Tahun! 🥳",
+    "iconPrepend": "🎂",
+    "body": "Semoga harimu menyenangkan!",
+    "createdBy": "system",
+    "createdAt": "2025-10-26T10:27:49.018Z",
+    "assignedRoles": [
+      "mahasiswa",
+      "dosen",
+      "staf"
+    ],
+    "priority": "date",
+    "date": {
+      "mode": "yearly",
+      "value": "12-28"
+    }
+  },
+  {
+    "id": "sb-1761474500314-5008",
+    "title": "Tanggal Apa gitu",
+    "iconPrepend": "😼",
+    "body": "Selamat tanggal 26 Oktober",
+    "createdBy": "2206081805",
+    "createdAt": "2025-10-26T10:28:20.314Z",
+    "assignedRoles": [
+      "dosen",
+      "staf"
+    ],
+    "priority": "current",
+    "date": {
+      "mode": "yearly",
+      "value": ""
+    }
+  },
+  {
+    "id": "sb-1761619858408-4795",
+    "title": "test",
+    "iconPrepend": "",
+    "body": "test",
+    "createdBy": "2206081805",
+    "createdAt": "2025-10-28T02:50:58.413Z",
+    "assignedRoles": [
+      "mahasiswa"
+    ],
+    "priority": "current",
+    "date": {
+      "mode": "yearly",
+      "value": ""
+    }
+  }
+]
