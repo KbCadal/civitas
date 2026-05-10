@@ -169,7 +169,7 @@ const userProfileList = [
                 append-icon="ri-logout-box-r-line"
                 @click="logoutUser"
               >
-                {{ config.public.authEnabled ? 'Logout' : 'Mode Lokal' }}
+                Logout
               </VBtn>
             </VListItem>
           </PerfectScrollbar>

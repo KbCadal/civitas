@@ -867,7 +867,7 @@ watch(showStates, vals => {
             prepend-icon="ri-logout-box-r-line"
             @click="logoutUser"
           >
-            {{ authEnabled ? 'Keluar' : 'Mode Lokal' }}
+            Keluar
           </VBtn>
         </div>
       </div>

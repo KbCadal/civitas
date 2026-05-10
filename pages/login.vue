@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import ImgDark from '@images/beranda/auth-bg-dark.png'
 import ImgLight from '@images/beranda/auth-bg-light.png'
 
@@ -28,14 +26,6 @@ const authThemeBg = useGenerateImageVariant(
   authV2LoginBgLight,
   authV2LoginBgDark,
 )
-
-const authEnabled = computed(() => useRuntimeConfig().public.authEnabled)
-const router = useRouter()
-
-onMounted(() => {
-  if (!authEnabled.value)
-    router.replace('/profile')
-})
 
 definePageMeta({
   layout: 'blank',
@@ -70,10 +60,10 @@ definePageMeta({
         >
           <div class="combine-contact4_content">
             <h2 class="heading-8">
-              {{ authEnabled ? 'SSO' : 'Mode Lokal' }}
+              SSO
             </h2>
             <h2 class="text-h5 heading-7">
-              {{ authEnabled ? 'Single Sign On' : 'Auth dinonaktifkan via feature flag' }}
+              Single Sign On
             </h2>
             <AuthProvider />
           </div>
@@ -129,10 +119,10 @@ definePageMeta({
         >
           <div class="combine-contact4_content">
             <h2 class="heading-8">
-              {{ authEnabled ? 'SSO' : 'Mode Lokal' }}
+              SSO
             </h2>
             <h2 class="text-h5 heading-7">
-              {{ authEnabled ? 'Single Sign On' : 'Auth dinonaktifkan via feature flag' }}
+              Single Sign On
             </h2>
             <AuthProvider />
           </div>
