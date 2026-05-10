@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.33.0",
   "scripts": {
     "dev": "nuxt dev",
     "build": "node --max-old-space-size=4096 node_modules/nuxt/bin/nuxt.mjs build",
@@ -51,10 +52,10 @@
     "swiper": "11.1.7",
     "ufo": "1.5.4",
     "unplugin-vue-define-options": "1.4.6",
-    "vue": "3.4.34",
+    "vue": "3.3.13",
     "vue-chartjs": "5.3.1",
     "vue-flatpickr-component": "11.0.5",
-    "vue-i18n": "^9.14.2",
+    "vue-i18n": "9.14.5",
     "vue-prism-component": "2.0.0",
     "vue-qrcode-reader": "^5.7.0",
     "vue-router": "4.4.0",
@@ -77,6 +78,8 @@
     "@iconify/tools": "4.0.4",
     "@iconify/utils": "2.1.25",
     "@iconify/vue": "4.1.2",
+    "@intlify/core-base": "9.14.5",
+    "@intlify/shared": "9.14.5",
     "@intlify/unplugin-vue-i18n": "4.0.0",
     "@nuxtjs/device": "3.1.1",
     "@pinia/nuxt": "0.5.1",
@@ -137,14 +140,22 @@
     "@tiptap/core": "^2",
     "@types/video.js": "^7",
     "sass": "1.76.0",
-    "vue": "3.4.34"
+    "vue": "3.3.13",
+    "@intlify/core-base": "9.14.5",
+    "@intlify/shared": "9.14.5",
+    "@intlify/message-compiler": "9.14.5",
+    "vue-i18n": "9.14.5"
   },
   "overrides": {
     "postcss": "^8",
     "@tiptap/core": "^2",
     "@types/video.js": "^7",
     "sass": "1.76.0",
-    "vue": "3.3.13"
+    "vue": "3.3.13",
+    "@intlify/core-base": "9.14.5",
+    "@intlify/shared": "9.14.5",
+    "@intlify/message-compiler": "9.14.5",
+    "vue-i18n": "9.14.5"
   },
   "msw": {
     "workerDirectory": "public"

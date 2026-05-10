@@ -496,7 +496,9 @@ const defaultDb = {
       faculty: 'UI',
       link: 'https://academic.ui.ac.id/',
       logo: '',
-
+    },
+    {
+      name: 'ANDIENI',
       nameShort: 'ANDIENI',
       faculty: 'UI',
       link: 'https://andieni.ui.ac.id/',
