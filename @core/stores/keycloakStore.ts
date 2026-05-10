@@ -20,6 +20,8 @@ const passwordExp = ref<string>('')
 const roles = ref<string[]>([])
 const selectedRole = useStorage('selectedRole', 'admin')
 
+const normalizeRole = (role: string) => role.toLowerCase().replace(/^mhs$/, 'mahasiswa')
+
 //* * Fungsi untuk menyegarkan data dari Keycloak Instance */
 const refresh = (): void => {
   authenticated.value = keycloakInstance.authenticated ?? false
@@ -37,6 +39,46 @@ const refresh = (): void => {
   accessToken.value = keycloakInstance.token || ''
   refreshTokenExp.value = refreshedTokenParsed.exp || 0
   roles.value = keycloakInstance.resourceAccess?.vueplayground?.roles ?? []
+}
+
+const setDevSession = (payload?: {
+  username?: string
+  displayName?: string
+  role?: string
+  civitas?: string
+}) => {
+  const runtimeConfig = useRuntimeConfig()
+  const usernameValue = payload?.username || String(runtimeConfig.public.devUsername || 'local_admin')
+  const displayNameValue = payload?.displayName || String(runtimeConfig.public.devDisplayName || 'Local Admin')
+  const roleValue = normalizeRole(payload?.role || String(runtimeConfig.public.devUserRole || 'admin'))
+  const civitasValue = String(payload?.civitas || runtimeConfig.public.devUserCivitas || 'staf').toLowerCase()
+
+  authenticated.value = true
+  name.value = displayNameValue
+  username.value = usernameValue
+  preferred_username.value = usernameValue
+  civitas.value = civitasValue
+  kodeIdentitas.value = '100000000000000001'
+  accessToken.value = ''
+  tokenParsedExp.value = 0
+  passwordExp.value = ''
+  refreshTokenExp.value = 0
+  roles.value = [roleValue]
+  selectedRole.value = roleValue
+}
+
+const clearSession = () => {
+  authenticated.value = false
+  name.value = ''
+  username.value = ''
+  preferred_username.value = ''
+  civitas.value = ''
+  kodeIdentitas.value = ''
+  accessToken.value = ''
+  tokenParsedExp.value = 0
+  passwordExp.value = ''
+  refreshTokenExp.value = 0
+  roles.value = []
 }
 
 //* * Fungsi untuk memperbarui token jika hampir kadaluwarsa  */
@@ -115,6 +157,8 @@ export const useKeycloakStore = defineStore('keycloak', () => {
     refresh,
     updateToken,
     decodeJwtPayload,
+    setDevSession,
+    clearSession,
 
     // GETTER
     isTokenExpired,

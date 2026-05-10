@@ -3,6 +3,12 @@ import keycloakInstance from '@/keycloak'
 
 export default defineNuxtPlugin(async nuxtApp => {
   const keycloakStore = useKeycloakStore()
+  const config = useRuntimeConfig()
+
+  if (!config.public.authEnabled) {
+    keycloakStore.setDevSession()
+    return
+  }
 
   try {
     const authenticated = await keycloakInstance.init({

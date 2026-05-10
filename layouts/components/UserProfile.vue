@@ -1,12 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
+import { useKeycloakStore } from '@/@core/stores/keycloakStore'
 
 const logoutUrl = ref(
   'https://login.ui.ac.id/realms/main/protocol/openid-connect/logout?client_id=civitas',
 )
+const config = useRuntimeConfig()
+const keycloakStore = useKeycloakStore()
 
 const logoutUser = () => {
+  if (!config.public.authEnabled) {
+    keycloakStore.clearSession()
+    keycloakStore.setDevSession()
+    return
+  }
+
   const redirectUri = window.location.origin
 
   window.location.href = `${logoutUrl.value}&post_logout_redirect_uri=${redirectUri}/login`
@@ -160,7 +169,7 @@ const userProfileList = [
                 append-icon="ri-logout-box-r-line"
                 @click="logoutUser"
               >
-                Logout
+                {{ config.public.authEnabled ? 'Logout' : 'Mode Lokal' }}
               </VBtn>
             </VListItem>
           </PerfectScrollbar>

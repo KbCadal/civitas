@@ -37,6 +37,8 @@ const currentCoverImg = computed(() => {
 // const userImg = computed(() => profileHeaderData.profileImg || profileImg)
 
 const keycloakStore = useKeycloakStore()
+const config = useRuntimeConfig()
+const authEnabled = computed(() => config.public.authEnabled)
 
 // Gunakan computed agar selalu reaktif
 const isAuthenticated = computed(() => keycloakStore.authenticated)
@@ -69,6 +71,12 @@ const logoutUrl = ref(
 )
 
 const logoutUser = () => {
+  if (!authEnabled.value) {
+    keycloakStore.clearSession()
+    keycloakStore.setDevSession()
+    return
+  }
+
   // Use window.location.origin for a dynamic base URL
   const redirectUri = window.location.origin
 
@@ -859,7 +867,7 @@ watch(showStates, vals => {
             prepend-icon="ri-logout-box-r-line"
             @click="logoutUser"
           >
-            Keluar
+            {{ authEnabled ? 'Keluar' : 'Mode Lokal' }}
           </VBtn>
         </div>
       </div>

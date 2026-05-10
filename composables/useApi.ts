@@ -52,7 +52,7 @@ export function useCivitasApi() {
     const tokenExp = keycloakInstance.tokenParsed?.exp ?? 0
     const timeRemaining = tokenExp - currentTime
 
-    if (timeRemaining < 5) {
+    if (keycloakStore.accessToken && timeRemaining < 5) {
       console.log('Token hampir expired, mencoba refresh...')
       await keycloakStore.updateToken()
     }

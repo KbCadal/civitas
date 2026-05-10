@@ -45,6 +45,12 @@ export default defineNuxtConfig({
     public: {
       apiBaseUrl1: process.env.NUXT_PUBLIC_API_BASE_URL_1 || '/api',
       apiBaseUrl2: process.env.NUXT_PUBLIC_API_BASE_URL_2 || '/api',
+      authEnabled: process.env.NUXT_PUBLIC_AUTH_ENABLED !== 'false',
+      mockUiApiEnabled: process.env.NUXT_PUBLIC_MOCK_UI_API_ENABLED === 'true',
+      devUsername: process.env.NUXT_PUBLIC_DEV_USERNAME || 'local_admin',
+      devDisplayName: process.env.NUXT_PUBLIC_DEV_DISPLAY_NAME || 'Local Admin',
+      devUserRole: process.env.NUXT_PUBLIC_DEV_USER_ROLE || 'admin',
+      devUserCivitas: process.env.NUXT_PUBLIC_DEV_USER_CIVITAS || 'staf',
     },
   },
   components: {

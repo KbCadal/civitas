@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import ImgDark from '@images/beranda/auth-bg-dark.png'
 import ImgLight from '@images/beranda/auth-bg-light.png'
 
@@ -26,6 +28,14 @@ const authThemeBg = useGenerateImageVariant(
   authV2LoginBgLight,
   authV2LoginBgDark,
 )
+
+const authEnabled = computed(() => useRuntimeConfig().public.authEnabled)
+const router = useRouter()
+
+onMounted(() => {
+  if (!authEnabled.value)
+    router.replace('/profile')
+})
 
 definePageMeta({
   layout: 'blank',
@@ -56,17 +66,17 @@ definePageMeta({
               width: '100%',
               opacity: 1,
             }"
-            class="form-component-login"
-          >
-            <div class="combine-contact4_content">
-              <h2 class="heading-8">
-                SSO
-              </h2>
-              <h2 class="text-h5 heading-7">
-                Single Sign On
-              </h2>
-              <AuthProvider />
-            </div>
+          class="form-component-login"
+        >
+          <div class="combine-contact4_content">
+            <h2 class="heading-8">
+              {{ authEnabled ? 'SSO' : 'Mode Lokal' }}
+            </h2>
+            <h2 class="text-h5 heading-7">
+              {{ authEnabled ? 'Single Sign On' : 'Auth dinonaktifkan via feature flag' }}
+            </h2>
+            <AuthProvider />
+          </div>
             <div class="login-copyright">
               &copy; Universitas Indonesia {{ new Date().getFullYear() }}
             </div>
@@ -119,10 +129,10 @@ definePageMeta({
         >
           <div class="combine-contact4_content">
             <h2 class="heading-8">
-              SSO
+              {{ authEnabled ? 'SSO' : 'Mode Lokal' }}
             </h2>
             <h2 class="text-h5 heading-7">
-              Single Sign On
+              {{ authEnabled ? 'Single Sign On' : 'Auth dinonaktifkan via feature flag' }}
             </h2>
             <AuthProvider />
           </div>

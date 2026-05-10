@@ -3,6 +3,17 @@ import { useKeycloakStore } from '~/@core/stores/keycloakStore'
 
 export default defineNuxtRouteMiddleware(to => {
   const keycloakStore = useKeycloakStore()
+  const config = useRuntimeConfig()
+
+  if (!config.public.authEnabled) {
+    if (!keycloakStore.authenticated)
+      keycloakStore.setDevSession()
+
+    if (to.path === '/')
+      return navigateTo('/profile')
+
+    return
+  }
 
   if (process.client) {
     const loginPages = ['/login', '/login-v1', '/login-v2', '/login-v3', '/login-v4', '/login-v5', '/login-v6']
