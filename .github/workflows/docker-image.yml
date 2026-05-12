@@ -1,0 +1,31 @@
+name: Docker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Build image
+        run: |
+          TAG="${GITHUB_SHA}-$(date +%Y%m%d-%H%M%S)"
+
+          docker build . \
+            -t kbcadal/civitas:$TAG \
+            -t kbcadal/civitas:latest
+
+          echo "TAG=$TAG" >> $GITHUB_ENV
+
+      - name: Push image
+        run: |
+          docker push kbcadal/civitas:$TAG
+          docker push kbcadal/civitas:latest
