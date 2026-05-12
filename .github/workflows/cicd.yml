@@ -43,3 +43,4 @@ jobs:
         run: |
           export KUBECONFIG=kubeconfig.yaml
           kubectl apply -f deployment.yaml
+          kubectl rollout restart deployment.apps civitas-deployment
