@@ -1,0 +1,51 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.set_tag.outputs.tag }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+
+      - name: Build image
+        id: set_tag
+        run: |
+          TAG="${GITHUB_SHA}-$(date +%Y%m%d-%H%M%S)"
+          docker build . \
+            -t ghcr.io/${{ github.repository_owner }}/civitas:$TAG \
+            -t ghcr.io/${{ github.repository_owner }}/civitas:latest
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Push image
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/civitas:${{ steps.set_tag.outputs.tag }}
+          docker push ghcr.io/${{ github.repository_owner }}/civitas:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up kubeconfig
+        run: |
+          mkdir -p k8s
+          echo "${{ secrets.KUBECONFIG }}" > k8s/kubeconfig.yaml
+
+      - name: Apply Kubernetes
+        working-directory: k8s
+        run: |
+          export KUBECONFIG=kubeconfig.yaml
+          kubectl set image deployment/civitas civitas=ghcr.io/${{ github.repository_owner }}/civitas:latest
+          kubectl apply -f deployment.yaml
