@@ -40,12 +40,10 @@ jobs:
 
       - name: Set up kubeconfig
         run: |
-          mkdir -p k8s
-          echo "${{ secrets.KUBECONFIG }}" > k8s/kubeconfig.yaml
+          export KUBECONFIG=kubeconfig.yaml
+          kubectl set image deployment/civitas civitas=ghcr.io/${{ github.repository_owner }}/civitas:latest
 
       - name: Apply Kubernetes
         working-directory: k8s
         run: |
-          export KUBECONFIG=kubeconfig.yaml
-          kubectl set image deployment/civitas civitas=ghcr.io/${{ github.repository_owner }}/civitas:latest
           kubectl apply -f deployment.yaml
