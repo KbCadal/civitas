@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: civitas-deployment 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: civitas
+  template:
+    metadata:
+      labels:
+        app: civitas
+    spec:
+      containers:
+        - name: civitas
+          image: wisnunugroho13/civitas:latest
+          ports:
+            - containerPort: 3000
