@@ -43,8 +43,4 @@ jobs:
         run: |
           export KUBECONFIG=kubeconfig.yaml
           kubectl set image deployment/civitas-deployment civitas=ghcr.io/${{ github.repository_owner }}/civitas:latest
-
-      - name: Apply Kubernetes
-        working-directory: k8s
-        run: |
           kubectl apply -f deployment.yaml
