@@ -21,7 +21,7 @@ jobs:
         id: set_tag
         run: |
           TAG="${GITHUB_SHA}-$(date +%Y%m%d-%H%M%S)"
-          docker build . \
+          docker build --no-cache . \
             -t ghcr.io/${{ github.repository_owner }}/civitas:$TAG \
             -t ghcr.io/${{ github.repository_owner }}/civitas:latest
           echo "tag=$TAG" >> $GITHUB_OUTPUT
@@ -42,5 +42,4 @@ jobs:
         working-directory: k8s
         run: |
           export KUBECONFIG=kubeconfig.yaml
-          kubectl set image deployment/civitas-deployment civitas=ghcr.io/${{ github.repository_owner }}/civitas:latest
           kubectl apply -f deployment.yaml
