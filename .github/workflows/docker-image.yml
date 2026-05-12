@@ -20,8 +20,8 @@ jobs:
           TAG="${GITHUB_SHA}-$(date +%Y%m%d-%H%M%S)"
 
           docker build . \
-            -t kbcadal/civitas:$TAG \
-            -t kbcadal/civitas:latest
+            -t wisnunugroho13/civitas:$TAG \
+            -t wisnunugroho13/civitas:latest
 
           echo "TAG=$TAG" >> $GITHUB_ENV
 
