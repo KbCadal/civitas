@@ -15,4 +15,5 @@ jobs:
       - name: Apply Kubernetes
         working-directory: k8s
         run: |
+          export KUBECONFIG=kubeconfig.yaml
           kubectl apply -f deployment.yaml
