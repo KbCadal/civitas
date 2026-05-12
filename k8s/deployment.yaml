@@ -12,8 +12,10 @@ spec:
       labels:
         app: civitas
     spec:
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: civitas
-          image: kbcadal/civitas:latest
+          image: ghcr.io/kbcadal/civitas:latest
           ports:
             - containerPort: 3000
