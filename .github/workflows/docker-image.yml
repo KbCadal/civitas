@@ -12,20 +12,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Login GHCR
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+      - name: Login Docker Hub
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build image
         run: |
           TAG="${GITHUB_SHA}-$(date +%Y%m%d-%H%M%S)"
 
           docker build . \
-            -t ghcr.io/${{ github.repository_owner }}/civitas:$TAG \
-            -t ghcr.io/${{ github.repository_owner }}/civitas:latest
+            -t wisnunugroho13/civitas:$TAG \
+            -t wisnunugroho13/civitas:latest
 
           echo "TAG=$TAG" >> $GITHUB_ENV
 
       - name: Push image
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/civitas:$TAG
-          docker push ghcr.io/${{ github.repository_owner }}/civitas:latest
+          docker push wisnunugroho13/civitas:$TAG
+          docker push wisnunugroho13/civitas:latest
