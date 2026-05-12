@@ -27,5 +27,5 @@ jobs:
 
       - name: Push image
         run: |
-          docker push kbcadal/civitas:$TAG
-          docker push kbcadal/civitas:latest
+          docker push wisnunugroho13/civitas:$TAG
+          docker push wisnunugroho13/civitas:latest
