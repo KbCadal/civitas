@@ -44,4 +44,4 @@ jobs:
           export KUBECONFIG=kubeconfig.yaml
           kubectl apply -f deployment.yaml
           kubectl rollout restart deployment.apps civitas-deployment
-          kubeconfig rollout status deployment.apps civitas-deployment
+          kubectl rollout status deployment.apps civitas-deployment
