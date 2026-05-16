@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: civitas-config
+data:
+  NODE_ENV: production
+  HOST: 0.0.0.0
+  PORT: "3000"
+  # NUXT_PUBLIC_SSO_BASE_URL: "https://login.ui.ac.id"
+  # NUXT_PUBLIC_API_BASE_URL1: "https://api.ui.ac.id"
+  # NUXT_PUBLIC_API_BASE_URL2: "http://localhost:8090/service/parkir"
+  NUXT_PUBLIC_SSO_BASE_URL: "http://localhost:8080"
+  NUXT_PUBLIC_API_BASE_URL1: "http://localhost:8090/ui"
+  NUXT_PUBLIC_API_BASE_URL2: "http://localhost:8090/service/parkir"

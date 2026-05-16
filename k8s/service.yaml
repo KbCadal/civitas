@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: civitas
+spec:
+  selector:
+    app.kubernetes.io/name: civitas
+    app.kubernetes.io/component: web
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http
