@@ -1,0 +1,61 @@
+name: Deploy to Kubernetes
+
+on:
+  workflow_run:
+    workflows:
+      - Build and Push Docker Image
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: Docker image tag to deploy
+        required: false
+
+permissions:
+  contents: read
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository }}
+  IMAGE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.image_tag || '' }}
+
+jobs:
+  deploy:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Resolve image tag
+        id: image_tag
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            echo "value=sha-$(printf '%s' '${{ github.event.workflow_run.head_sha }}' | cut -c1-7)" >> "$GITHUB_OUTPUT"
+          elif [ -n "${{ inputs.image_tag }}" ]; then
+            echo "value=${{ inputs.image_tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=sha-$(printf '%s' '${{ github.sha }}' | cut -c1-7)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set Kubernetes context
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG_CIVITAS }}
+
+      - name: Deploy manifests
+        uses: Azure/k8s-deploy@v5
+        with:
+          manifests: |
+            k8s/configmap.yaml
+            k8s/pvc.yaml
+            k8s/deployment.yaml
+            k8s/service.yaml
+          images: |
+            ${{ env.IMAGE_NAME }}:${{ steps.image_tag.outputs.value }}
