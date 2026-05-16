@@ -1,15 +1,31 @@
 import Keycloak from 'keycloak-js'
 
 const keycloakConfig = {
-  url: 'https://login.ui.ac.id',
   realm: 'main',
-
-  clientId: 'civitas', // harus minta ijin localhost dulu
-  // clientId: 'vueplayground',
+  clientId: 'civitas',
 }
 
-// Directly instantiate the Keycloak instance to avoid 'null' issues
-const keycloakInstance = new Keycloak(keycloakConfig)
+let keycloakInstance: Keycloak | null = null
 
-export default keycloakInstance
+export function createKeycloakInstance(url: string): Keycloak {
+  keycloakInstance = new Keycloak({ url, ...keycloakConfig })
+
+  return keycloakInstance
+}
+
+export function getKeycloakInstance(): Keycloak {
+  if (!keycloakInstance)
+    throw new Error('Keycloak not initialized. Call createKeycloakInstance(url) first.')
+
+  return keycloakInstance
+}
+
 export { keycloakConfig }
+
+export default new Proxy({} as Keycloak, {
+  get(_, prop) {
+    const inst = getKeycloakInstance()
+
+    return (inst as any)[prop]
+  },
+})

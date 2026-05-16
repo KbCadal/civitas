@@ -4,6 +4,8 @@ import { onMounted, ref } from 'vue'
 import { useKeycloakStore } from '@/@core/stores/keycloakStore'
 
 const keycloakStore = useKeycloakStore()
+const config = useRuntimeConfig()
+const apiBaseUrl1 = config.public.apiBaseUrl1 as string
 
 const avatarUrl = ref(profileImg) // default fallback as initial value
 
@@ -19,7 +21,7 @@ async function checkImageExists(url: string) {
 
 onMounted(async () => {
   if (keycloakStore.kodeIdentitas) {
-    const imageUrl = `https://api.ui.ac.id/public/photo/${keycloakStore.kodeIdentitas}.jpg`
+    const imageUrl = `${apiBaseUrl1}/public/photo/${keycloakStore.kodeIdentitas}.jpg`
     const exists = await checkImageExists(imageUrl)
     if (exists)
       avatarUrl.value = imageUrl

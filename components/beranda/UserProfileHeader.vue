@@ -64,9 +64,10 @@ const initials = computed(() => {
 // We intentionally always show initials (no profile image).
 // Keep the initials computation above and always render them.
 
-const logoutUrl = ref(
-  'https://login.ui.ac.id/realms/main/protocol/openid-connect/logout?client_id=civitas',
-)
+const config = useRuntimeConfig()
+const ssoBaseUrl = config.public.ssoBaseUrl as string
+
+const logoutUrl = ref(`${ssoBaseUrl}/realms/main/protocol/openid-connect/logout?client_id=civitas`)
 
 const logoutUser = () => {
   // Use window.location.origin for a dynamic base URL

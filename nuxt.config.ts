@@ -45,6 +45,7 @@ export default defineNuxtConfig({
     public: {
       apiBaseUrl1: process.env.NUXT_PUBLIC_API_BASE_URL_1 || '/api',
       apiBaseUrl2: process.env.NUXT_PUBLIC_API_BASE_URL_2 || '/api',
+      ssoBaseUrl: process.env.NUXT_PUBLIC_SSO_BASE_URL || 'https://login.ui.ac.id',
     },
   },
   components: {

@@ -2,9 +2,10 @@
 import { ref } from 'vue'
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 
-const logoutUrl = ref(
-  'https://login.ui.ac.id/realms/main/protocol/openid-connect/logout?client_id=civitas',
-)
+const config = useRuntimeConfig()
+const ssoBaseUrl = config.public.ssoBaseUrl as string
+
+const logoutUrl = ref(`${ssoBaseUrl}/realms/main/protocol/openid-connect/logout?client_id=civitas`)
 
 const logoutUser = () => {
   const redirectUri = window.location.origin

@@ -2,6 +2,8 @@
 import { useKeycloakStore } from '@core/stores/keycloakStore'
 import { computed, ref, watch } from 'vue'
 
+const config = useRuntimeConfig()
+const apiBaseUrl1 = config.public.apiBaseUrl1 as string
 const keycloakStore = useKeycloakStore()
 
 const isCurrentPasswordVisible = ref(false)
@@ -100,8 +102,6 @@ function toBase64(str: string) {
   return btoa(unescape(encodeURIComponent(str)))
 }
 
-const { api } = useCivitasApi()
-
 // Set Password
 async function setPassword() {
   isSubmitting.value = true
@@ -150,27 +150,11 @@ async function setPassword() {
   }
 
   try {
-    // Panggil API untuk mengganti password
     const requestData = {
       oldPassword: toBase64(currentPassword.value),
       newPassword: toBase64(newPassword.value),
     }
 
-    // const apiEndpoint = 'https://api.ui.ac.id/my/pw'
-
-    // const response = await fetch(apiEndpoint, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': `Bearer ${keycloakStore.accessToken}`,
-    //   },
-    //   body: JSON.stringify(requestData),
-    // })
-
-    console.log('🚀 Starting password change API call...')
-    console.log('📤 Request data:', requestData)
-
-    // Use $fetch directly as suggested by Nuxt for mounted components
     try {
       const response = await $fetch('/my/pw', {
         method: 'POST',
@@ -179,13 +163,9 @@ async function setPassword() {
           'Authorization': `Bearer ${keycloakStore.accessToken}`,
         },
         body: requestData,
-        baseURL: 'https://api.ui.ac.id',
+        baseURL: apiBaseUrl1,
       })
 
-      console.log('📥 API Response:', response)
-      console.log('✅ Password change successful!')
-
-      // If we reach here, the password change was successful
       snackbarMessage.value = 'Kata sandi berhasil diubah. Silakan logout dan login kembali dengan kata sandi baru.'
       snackbarColor.value = 'success'
       snackbar.value = true
@@ -194,9 +174,6 @@ async function setPassword() {
       confirmPassword.value = ''
     }
     catch (fetchError: any) {
-      console.log('❌ Fetch Error:', fetchError)
-
-      // Handle specific error cases
       if (fetchError.status === 401)
         throw new Error('Kata sandi lama tidak sesuai')
 
@@ -204,7 +181,6 @@ async function setPassword() {
     }
   }
   catch (error) {
-    // Handle error
     if (error instanceof Error) {
       snackbarMessage.value = error.message
       snackbarColor.value = 'error'

@@ -1,7 +1,12 @@
 import { useKeycloakStore } from '@/@core/stores/keycloakStore'
-import keycloakInstance from '@/keycloak'
+import { createKeycloakInstance } from '@/keycloak'
 
-export default defineNuxtPlugin(async nuxtApp => {
+export default defineNuxtPlugin(async () => {
+  const config = useRuntimeConfig()
+  const ssoBaseUrl = config.public.ssoBaseUrl as string
+
+  const keycloakInstance = createKeycloakInstance(ssoBaseUrl)
+
   const keycloakStore = useKeycloakStore()
 
   try {
@@ -20,8 +25,6 @@ export default defineNuxtPlugin(async nuxtApp => {
       setInterval(() => {
         const now = Math.floor(Date.now() / 1000)
         const tokenExp = keycloakInstance.refreshTokenParsed?.exp ?? 0
-
-        // const tokenParsed = keycloakInstance.tokenParsed?.exp ?? 0
 
         if (tokenExp <= now) {
           console.warn('Token expired. Logging out...')
