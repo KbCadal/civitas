@@ -2,12 +2,18 @@ FROM node:22-bookworm-slim AS builder
 
 WORKDIR /app
 
-RUN corepack enable
+RUN corepack enable \
+  && corepack prepare pnpm@10.33.0 --activate
 
 COPY package.json pnpm-lock.yaml .npmrc ./
-RUN pnpm install --no-frozen-lockfile --ignore-scripts
+
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
 COPY . .
+
+RUN pnpm exec nuxt prepare \
+  && pnpm run build:icons
+
 RUN pnpm build
 
 FROM node:22-bookworm-slim AS runner
